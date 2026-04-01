@@ -72,12 +72,16 @@ const Header = () => {
               </NavigationMenuList>
             </NavigationMenu>
             
-            <a
-              href="#contact"
+
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('contact')?.scrollIntoView();
+              }}
               className="btn-primary text-sm"
             >
               Get in Touch
-            </a>
+            </button>
           </nav>
           
           <button

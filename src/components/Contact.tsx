@@ -1,4 +1,3 @@
-
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import SectionTitle from './ui/SectionTitle';
 import { Mail, Linkedin, MapPin, Phone, Github, Twitter } from 'lucide-react';
@@ -7,7 +6,7 @@ const Contact = () => {
   const contactRef = useScrollReveal<HTMLDivElement>();
   
   return (
-    <section id="contact" className="section bg-background relative">
+    <section id="contact" className="section bg-background relative scroll-mt-24">
       {/* Add subtle gradient in background */}
       <div className="absolute inset-0 dark-gradient-bg opacity-20"></div>
       
