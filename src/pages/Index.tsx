@@ -2,17 +2,14 @@
 import { useEffect } from 'react';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
-import RevenueDashboard from '@/components/RevenueDashboard';
+import Project from '@/components/Projects';
 import Experience from '@/components/Experience';
-import Skills from '@/components/Skills';
-import Projects from '@/components/Projects';
-import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import Analytics from '@/components/Analytics';
 
 const Index = () => {
   useEffect(() => {
-    document.title = "Hisham - Senior Product Manager";
+    document.title = "AidielZiat Portfolio";
   }, []);
 
   return (
@@ -23,19 +20,10 @@ const Index = () => {
           <Hero />
         </section>
         <section id="revenue-impact">
-          <RevenueDashboard />
+          <Project />
         </section>
         <section id="experience">
           <Experience />
-        </section>
-        <section id="skills">
-          <Skills />
-        </section>
-        <section id="projects">
-          <Projects />
-        </section>
-        <section id="contact">
-          <Contact />
         </section>
       </main>
       <Footer />

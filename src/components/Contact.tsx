@@ -34,8 +34,8 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Email</p>
-                  <a href="mailto:hisham.mohamaf@gmail.com" className="font-medium hover:text-primary transition-colors">
-                    hisham.mohamaf@gmail.com
+                  <a href="mailto:aidiel.haikal0708@gmail.com" className="font-medium hover:text-primary transition-colors">
+                    aidiel.haikal0708@gmail.com
                   </a>
                 </div>
               </div>
@@ -47,12 +47,12 @@ const Contact = () => {
                 <div>
                   <p className="text-sm text-muted-foreground">LinkedIn</p>
                   <a 
-                    href="https://linkedin.com/in/hisham86" 
+                    href="https://www.linkedin.com/in/mohamedziat/" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="font-medium hover:text-primary transition-colors"
                   >
-                    linkedin.com/in/hisham86
+                    linkedin.com/in/mohamedziat
                   </a>
                 </div>
               </div>
@@ -64,17 +64,17 @@ const Contact = () => {
                 <div>
                   <p className="text-sm text-muted-foreground">GitHub</p>
                   <a 
-                    href="https://github.com/hisham86" 
+                    href="https://github.com/AidielZiat" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="font-medium hover:text-primary transition-colors"
                   >
-                    github.com/hisham86
+                    github.com/AidielZiat
                   </a>
                 </div>
               </div>
               
-              <div className="flex items-center">
+              {/* <div className="flex items-center">
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-4">
                   <Twitter size={18} className="text-primary" />
                 </div>
@@ -89,7 +89,7 @@ const Contact = () => {
                     @Solo_Level_27
                   </a>
                 </div>
-              </div>
+              </div> */}
               
               <div className="flex items-center">
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-4">
@@ -98,7 +98,7 @@ const Contact = () => {
                 <div>
                   <p className="text-sm text-muted-foreground">Phone</p>
                   <a href="tel:+60122803585" className="font-medium hover:text-primary transition-colors">
-                    +6 (012) 280-3585
+                    +60 19 854 0708
                   </a>
                 </div>
               </div>

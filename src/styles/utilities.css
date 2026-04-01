@@ -11,7 +11,7 @@
 }
 
 .dark-gradient-bg {
-  background: radial-gradient(circle at 50% 50%, rgba(249, 115, 22, 0.15), rgba(17, 24, 39, 0) 70%);
+  background: radial-gradient(circle at 50% 50%, rgba(48, 249, 22, 0.15), rgba(17, 24, 39, 0) 70%);
 }
 
 .dark-gradient-border {

@@ -1,16 +1,12 @@
-
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import AnimatedLogo from './ui/AnimatedLogo';
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
 } from './ui/navigation-menu';
 import NavigationLinks from './header/NavigationLinks';
-import ToolsDropdown from './header/ToolsDropdown';
 import MobileMenu from './header/MobileMenu';
 
 const Header = () => {
@@ -30,6 +26,10 @@ const Header = () => {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
+  const handleDownloadCV = () => {
+    window.open('https://drive.google.com/file/d/1PFyfHnXQnkTnuCyh9YX7ExW4xQGVK5EA/view?usp=drive_link', '_blank');
+  };
   
   return (
     <header 
@@ -48,26 +48,26 @@ const Header = () => {
             }`}
           >
             <AnimatedLogo />
-            <span className="text-xl font-bold">Hisham</span>
+            <span className="text-xl font-bold">AidielZiat</span>
           </a>
           
           <nav className="hidden md:flex items-center space-x-8">
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationLinks isScrolled={isScrolled} />
-                <ToolsDropdown isScrolled={isScrolled} />
                 
+                {/* Replaced Tools and Contact with Download CV */}
                 <NavigationMenuItem>
-                  <NavigationMenuLink
-                    href="#contact"
+                  <button
+                    onClick={handleDownloadCV}
                     className={`text-sm font-medium transition-colors duration-200 px-4 py-2 ${
                       isScrolled 
                         ? 'text-gray-900 hover:text-primary' 
                         : 'text-white/80 hover:text-white'
                     }`}
                   >
-                    Contact
-                  </NavigationMenuLink>
+                    Download CV
+                  </button>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>

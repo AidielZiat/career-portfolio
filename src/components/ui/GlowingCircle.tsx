@@ -1,7 +1,6 @@
-
 import React, { useEffect, useRef } from 'react';
 
-const GlowingCircle = () => {
+const NetworkPulse = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   
   useEffect(() => {
@@ -11,152 +10,129 @@ const GlowingCircle = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     
-    // Set canvas dimensions
     const updateSize = () => {
       canvas.width = window.innerWidth;
-      canvas.height = 300;
+      canvas.height = 350; 
     };
     
     window.addEventListener('resize', updateSize);
     updateSize();
     
-    // Animation variables
     let animationFrameId: number;
-    let rotation = 0;
+    const particles: Particle[] = [];
+    const particleCount = 60; 
+    const connectionDistance = 150;
+    const pulseSpeed = 0.02;
     
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-    const radius = 80;
+    // 1. Theme Color Updated to Neon Green (matching your AI & Data vibe)
+    const primaryColor = '57, 255, 20'; 
     
-    // Draw glowing circle with color segments
-    function draw() {
+    class Particle {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      radius: number;
+      pulse: number;
+
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.4; // Slightly slowed down for better focus
+        this.vy = (Math.random() - 0.5) * 0.4;
+        this.radius = Math.random() * 2 + 1;
+        this.pulse = Math.random() * Math.PI;
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.pulse += pulseSpeed;
+
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+      }
+
+      draw() {
+        if (!ctx) return;
+        const opacity = (Math.sin(this.pulse) + 1) / 2;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${primaryColor}, ${0.3 + opacity * 0.4})`;
+        ctx.fill();
+        
+        // Node Glow
+        ctx.shadowBlur = 12 * opacity; // Increased glow slightly for neon effect
+        ctx.shadowColor = `rgba(${primaryColor}, 0.5)`;
+      }
+    }
+
+    const init = () => {
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+    };
+
+    const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // Create background gradient
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.9)';
+      ctx.fillStyle = 'rgba(10, 10, 10, 0)'; 
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      
-      // Save context for rotation
-      ctx.save();
-      ctx.translate(centerX, centerY);
-      ctx.rotate(rotation);
-      
-      // Draw outer circle
-      ctx.beginPath();
-      ctx.arc(0, 0, radius + 3, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(50, 50, 50, 0.5)';
-      ctx.lineWidth = 2;
-      ctx.stroke();
-      
-      // Draw blue arc
-      ctx.beginPath();
-      ctx.arc(0, 0, radius, -Math.PI * 0.5, Math.PI * 0.1);
-      ctx.strokeStyle = 'rgba(0, 162, 255, 0.9)';
-      ctx.lineWidth = 6;
-      ctx.lineCap = 'round';
-      ctx.shadowColor = 'rgba(0, 162, 255, 0.8)';
-      ctx.shadowBlur = 15;
-      ctx.stroke();
-      ctx.shadowBlur = 0;
-      
-      // Draw orange arc
-      ctx.beginPath();
-      ctx.arc(0, 0, radius, Math.PI * 0.5, Math.PI * 1.1);
-      ctx.strokeStyle = 'rgba(255, 102, 0, 0.9)';
-      ctx.shadowColor = 'rgba(255, 102, 0, 0.8)';
-      ctx.shadowBlur = 15;
-      ctx.stroke();
-      ctx.shadowBlur = 0;
-      
-      // Draw center circle
-      ctx.beginPath();
-      ctx.arc(0, 0, radius * 0.7, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(30, 30, 30, 0.9)';
-      ctx.fill();
-      
-      // Draw center logo (a simple plus symbol)
-      ctx.beginPath();
-      ctx.moveTo(-15, 0);
-      ctx.lineTo(15, 0);
-      ctx.moveTo(0, -15);
-      ctx.lineTo(0, 15);
-      ctx.strokeStyle = 'rgba(80, 80, 80, 0.7)';
-      ctx.lineWidth = 4;
-      ctx.lineCap = 'round';
-      ctx.stroke();
-      
-      // Draw light beams
-      const blueBeamAngle = -Math.PI * 0.2;
-      const orangeBeamAngle = Math.PI * 0.8;
-      
-      // Blue light beam
-      ctx.beginPath();
-      ctx.moveTo(Math.cos(blueBeamAngle) * radius, Math.sin(blueBeamAngle) * radius);
-      ctx.lineTo(Math.cos(blueBeamAngle) * radius * 5, Math.sin(blueBeamAngle) * radius * 5);
-      ctx.strokeStyle = 'rgba(0, 162, 255, 0.1)';
-      ctx.lineWidth = 80;
-      ctx.stroke();
-      
-      // Orange light beam
-      ctx.beginPath();
-      ctx.moveTo(Math.cos(orangeBeamAngle) * radius, Math.sin(orangeBeamAngle) * radius);
-      ctx.lineTo(Math.cos(orangeBeamAngle) * radius * 5, Math.sin(orangeBeamAngle) * radius * 5);
-      ctx.strokeStyle = 'rgba(255, 102, 0, 0.1)';
-      ctx.lineWidth = 80;
-      ctx.stroke();
-      
-      // Restore context
-      ctx.restore();
-      
-      // Clock hands
-      ctx.save();
-      ctx.translate(centerX, centerY);
-      
-      // Hour hand
-      ctx.rotate(rotation * 12);
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.lineTo(0, -radius * 0.5);
-      ctx.strokeStyle = 'rgba(180, 180, 180, 0.7)';
-      ctx.lineWidth = 4;
-      ctx.lineCap = 'round';
-      ctx.stroke();
-      
-      // Minute hand
-      ctx.rotate(rotation * 3 - rotation * 12);
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.lineTo(0, -radius * 0.6);
-      ctx.strokeStyle = 'rgba(220, 220, 220, 0.8)';
-      ctx.lineWidth = 3;
-      ctx.stroke();
-      
-      ctx.restore();
-      
-      // Update rotation
-      rotation += 0.001;
-      
-      // Continue animation
+
+      for (let i = 0; i < particles.length; i++) {
+        const p1 = particles[i];
+        p1.update();
+        p1.draw();
+
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const dx = p1.x - p2.x;
+          const dy = p1.y - p2.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < connectionDistance) {
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            
+            const edgeOpacity = 1 - distance / connectionDistance;
+            ctx.strokeStyle = `rgba(${primaryColor}, ${edgeOpacity * 0.12})`; // Softer edges for cleaner look
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            // "Agentic Pulse" - Light traveling between nodes
+            if (Math.sin(p1.pulse) > 0.98) {
+               ctx.beginPath();
+               ctx.moveTo(p1.x, p1.y);
+               ctx.lineTo(p2.x, p2.y);
+               ctx.strokeStyle = `rgba(${primaryColor}, ${edgeOpacity * 0.7})`;
+               ctx.lineWidth = 1.5;
+               ctx.stroke();
+            }
+          }
+        }
+      }
       animationFrameId = requestAnimationFrame(draw);
-    }
-    
+    };
+
+    init();
     draw();
-    
-    // Cleanup
+
     return () => {
       window.removeEventListener('resize', updateSize);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
-  
+
   return (
-    <div className="w-full h-[300px] overflow-hidden">
+    <div className="w-full h-[350px] overflow-hidden relative">
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background pointer-events-none z-10" />
       <canvas 
         ref={canvasRef} 
-        className="w-full h-full"
+        className="w-full h-full opacity-50" // Lowered opacity slightly to keep focus on text
       />
     </div>
   );
 };
 
-export default GlowingCircle;
+export default NetworkPulse;

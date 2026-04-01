@@ -18,13 +18,12 @@ const Footer = () => {
       <div className="container max-w-6xl mx-auto px-6 md:px-8 py-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
           <div>
-            <h3 className="text-xl font-bold mb-4">Hisham</h3>
+            <h3 className="text-xl font-bold mb-4">Aidiel Ziat</h3>
             <p className="text-muted-foreground mb-6">
-              Senior Product Manager with a passion for creating innovative products that solve real problems.
-            </p>
+              Leveraging consulting expertise in the Financial Services industry to build resilient, AI-driven architectures that solve complex regulatory and business challenges.</p>
             <div className="flex space-x-3">
               <a 
-                href="https://linkedin.com/in/hisham86" 
+                href="https://www.linkedin.com/in/mohamedziat/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-full bg-foreground/5 flex items-center justify-center hover:bg-foreground/10 transition-colors"
@@ -33,7 +32,7 @@ const Footer = () => {
                 <Linkedin size={18} />
               </a>
               <a 
-                href="https://github.com/hisham86" 
+                href="https://github.com/AidielZiat"
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-full bg-foreground/5 flex items-center justify-center hover:bg-foreground/10 transition-colors"
@@ -41,7 +40,7 @@ const Footer = () => {
               >
                 <Github size={18} />
               </a>
-              <a 
+              {/* <a 
                 href="https://x.com/Solo_Level_27" 
                 target="_blank" 
                 rel="noopener noreferrer"
@@ -58,7 +57,7 @@ const Footer = () => {
                 aria-label="Buy Me a Coffee"
               >
                 <Coffee size={18} />
-              </a>
+              </a> */}
             </div>
           </div>
           
@@ -66,9 +65,8 @@ const Footer = () => {
             <h3 className="text-xl font-bold mb-4">Pages</h3>
             <ul className="space-y-2.5">
               <li><a href="#home" className="text-muted-foreground hover:text-foreground transition-colors">Home</a></li>
-              <li><a href="#experience" className="text-muted-foreground hover:text-foreground transition-colors">Experience</a></li>
-              <li><a href="#skills" className="text-muted-foreground hover:text-foreground transition-colors">Skills</a></li>
               <li><a href="#projects" className="text-muted-foreground hover:text-foreground transition-colors">Projects</a></li>
+              <li><a href="#experience" className="text-muted-foreground hover:text-foreground transition-colors">Experience</a></li>
               <li><a href="#contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</a></li>
             </ul>
           </div>
@@ -83,9 +81,9 @@ const Footer = () => {
               className="inline-flex items-center text-primary hover:underline"
             >
               <Mail size={18} className="mr-2" />
-              hisham.mohamaf@gmail.com
+              aidiel.haikal0708@gmail.com
             </a>
-            <div className="mt-4">
+            {/* <div className="mt-4">
               <a 
                 href="https://buymeacoffee.com/hishamcato"
                 target="_blank"
@@ -95,10 +93,10 @@ const Footer = () => {
                 <Coffee size={18} className="mr-2" />
                 Buy me a coffee
               </a>
-            </div>
+            </div> */}
             <div className="mt-2">
               <a 
-                href="https://github.com/hisham86"
+                href="https://github.com/AidielZiat" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center text-gray-500 hover:text-gray-400 transition-colors"
@@ -113,14 +111,14 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-border">
           <div className="flex flex-col md:flex-row items-center gap-3 mb-4 md:mb-0">
             <p className="text-sm text-muted-foreground">
-              &copy; {new Date().getFullYear()} Hisham. All rights reserved.
+              &copy; {new Date().getFullYear()} Aidiel Ziat. All rights reserved.
             </p>
-            <div className="flex items-center bg-black/5 backdrop-blur-sm px-3 py-1 rounded-full">
+            {/* <div className="flex items-center bg-black/5 backdrop-blur-sm px-3 py-1 rounded-full">
               <Heart size={14} className="text-amber-500 fill-amber-500 mr-1.5" />
               <span className="text-xs text-muted-foreground">
                 Built by Hisham with <a href="https://lovable.dev" target="_blank" rel="noopener noreferrer" className="text-amber-500 hover:underline">Lovable</a>
               </span>
-            </div>
+            </div> */}
           </div>
           
           <Button 
