@@ -2,6 +2,7 @@
 import { useEffect } from 'react';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
+import LogoStrip from '@/components/LogoStrip';
 import Project from '@/components/Projects';
 import Experience from '@/components/Experience';
 import Contact from '@/components/Contact';
@@ -17,18 +18,11 @@ const Index = () => {
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       <Header />
       <main className="flex-grow">
-        <section id="home">
-          <Hero />
-        </section>
-        <section id="revenue-impact">
-          <Project />
-        </section>
-        <section id="experience">
-          <Experience />
-        </section>
-        <section id="contact">
-          <Contact />
-        </section>
+        <Hero />
+        <LogoStrip />
+        <Project />
+        <Experience />
+        <Contact />
       </main>
       <Footer />
       <Analytics />
