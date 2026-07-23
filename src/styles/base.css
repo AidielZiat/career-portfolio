@@ -3,50 +3,89 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Adjust this for the color */
 @layer base {
   :root {
-    --background: 222 47% 6%;
-    --foreground: 210 40% 98%;
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
 
-    --card: 222 47% 8%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
 
-    --popover: 222 47% 6%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
 
-    /* --- Neon Green Updates Start --- */
-    /* Adjusted Neon Green: Slightly deeper for better eye comfort */
-    --primary: 110 70% 45%; 
-    --primary-foreground: 222 47% 6%;
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 216 38% 97%;
+    --secondary-foreground: 222 47% 11%;
 
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 216 38% 97%;
+    --muted-foreground: 217 11% 40%;
 
-    --accent: 111 100% 45%; /* Slightly darker green for accents */
-    --accent-foreground: 210 40% 98%;
+    --accent: 216 38% 97%;
+    --accent-foreground: 222 47% 11%;
+
+    --accent-alt: 244 55% 41%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 217 33% 20%;
-    --input: 217 33% 17%;
-    --ring: 111 100% 54%;
+    --border: 218 17% 91%;
+    --input: 218 17% 91%;
+    --ring: 221 83% 53%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 222 47% 6%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 111 100% 54%;
-    --sidebar-primary-foreground: 222 47% 6%;
-    --sidebar-accent: 217 33% 17%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 217 33% 17%;
-    --sidebar-ring: 111 100% 54%;
-    /* --- Neon Green Updates End --- */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 221 83% 53%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 216 38% 97%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 218 17% 91%;
+    --sidebar-ring: 221 83% 53%;
+  }
+
+  .dark {
+    --background: 220 49% 8%;
+    --foreground: 220 23% 97%;
+
+    --card: 221 39% 11%;
+    --card-foreground: 220 23% 97%;
+
+    --popover: 221 39% 11%;
+    --popover-foreground: 220 23% 97%;
+
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 221 39% 11%;
+    --secondary-foreground: 220 23% 97%;
+
+    --muted: 221 39% 11%;
+    --muted-foreground: 219 32% 79%;
+
+    --accent: 221 39% 11%;
+    --accent-foreground: 220 23% 97%;
+
+    --accent-alt: 244 55% 41%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 219 27% 32%;
+    --input: 219 27% 32%;
+    --ring: 221 83% 53%;
+
+    --sidebar-background: 220 49% 8%;
+    --sidebar-foreground: 220 23% 97%;
+    --sidebar-primary: 221 83% 53%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 221 39% 11%;
+    --sidebar-accent-foreground: 220 23% 97%;
+    --sidebar-border: 219 27% 32%;
+    --sidebar-ring: 221 83% 53%;
   }
 }
 
