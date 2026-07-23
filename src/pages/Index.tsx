@@ -5,6 +5,8 @@ import Hero from '@/components/Hero';
 import LogoStrip from '@/components/LogoStrip';
 import Project from '@/components/Projects';
 import Experience from '@/components/Experience';
+import EducationCertifications from '@/components/EducationCertifications';
+import SkillsGrid from '@/components/SkillsGrid';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import Analytics from '@/components/Analytics';
@@ -22,6 +24,8 @@ const Index = () => {
         <LogoStrip />
         <Project />
         <Experience />
+        <EducationCertifications />
+        <SkillsGrid />
         <Contact />
       </main>
       <Footer />
