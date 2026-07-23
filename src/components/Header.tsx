@@ -5,7 +5,6 @@ import AnimatedLogo from './ui/AnimatedLogo';
 import ThemeToggle from './ui/ThemeToggle';
 import {
   NavigationMenu,
-  NavigationMenuItem,
   NavigationMenuList,
 } from './ui/navigation-menu';
 import NavigationLinks from './header/NavigationLinks';
