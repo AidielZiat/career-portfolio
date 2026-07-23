@@ -45,7 +45,7 @@ const EducationCertifications = () => {
   const sectionRef = useScrollReveal<HTMLDivElement>();
 
   return (
-    <section id="education" className="section bg-muted">
+    <section id="education" className="section bg-background">
       <div className="section-inner">
         <SectionTitle title="Education & Certifications" subtitle="Academic Background" />
 

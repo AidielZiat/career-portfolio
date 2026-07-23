@@ -25,7 +25,7 @@ const SkillsGrid = () => {
   const sectionRef = useScrollReveal<HTMLDivElement>();
 
   return (
-    <section id="skills" className="section bg-muted">
+    <section id="skills" className="section bg-background">
       <div className="section-inner">
         <SectionTitle title="Skills" subtitle="What I Work With" />
 

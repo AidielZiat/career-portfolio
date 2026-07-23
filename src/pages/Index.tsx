@@ -2,7 +2,6 @@
 import { useEffect } from 'react';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
-import LogoStrip from '@/components/LogoStrip';
 import Experience from '@/components/Experience';
 import EducationCertifications from '@/components/EducationCertifications';
 import Project from '@/components/Projects';
@@ -21,7 +20,6 @@ const Index = () => {
       <Header />
       <main className="flex-grow">
         <Hero />
-        <LogoStrip />
         <Experience />
         <EducationCertifications />
         <Project />
