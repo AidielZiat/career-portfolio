@@ -19,12 +19,15 @@ const HeroContent = () => {
         ref={titleRef}
         className="reveal-text text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-foreground"
       >
-        I build resilient, data-driven systems for financial services — and I'm moving toward fintech and e-commerce.
+        Creating the best experiences for users, with a focus on AI and data-driven solutions.
       </h1>
 
       <div ref={subtitleRef} className="reveal-text">
+        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-4">
+          Hey there! I'm Aidiel, a Consultant in AI & Data at Deloitte SEA.
+        </p>
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-8">
-          I'm Aidiel, an AI & Data consultant at Deloitte SEA with a background in financial risk modeling at PwC. I care about turning regulatory complexity and messy data into systems that hold up in production — and I'm now applying that lens to fintech and e-commerce problems.
+          I enjoy working with teams to drive innovation and deliver experiences to users. Feel free to explore my portfolio to see how I've contributed to various projects and initiatives in the tech space.
         </p>
       </div>
 
