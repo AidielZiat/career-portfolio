@@ -868,3 +868,129 @@ Check in the browser (dev server already running on port 8080): the Projects row
 git add src/components/Projects.tsx src/styles/animations.css
 git commit -m "feat: replace snap-carousel Projects with a continuous marquee"
 ```
+
+---
+
+### Task R9: Add Education to nav, add spacing in Education & Certifications, remove redundant Contact heading
+
+**Files:**
+- Modify: `src/components/header/NavigationLinks.tsx`
+- Modify: `src/components/header/MobileMenu.tsx`
+- Modify: `src/components/EducationCertifications.tsx`
+- Modify: `src/components/Contact.tsx`
+
+**Interfaces:** No prop/type changes anywhere — these are all small, self-contained edits within existing components.
+
+- [ ] **Step 1: Add an "Education" nav link to `src/components/header/NavigationLinks.tsx`**
+
+Change:
+
+```tsx
+const navLinks = [
+  { name: 'Experience', href: '#experience' },
+  { name: 'Projects', href: '#projects' },
+];
+```
+
+to:
+
+```tsx
+const navLinks = [
+  { name: 'Experience', href: '#experience' },
+  { name: 'Education', href: '#education' },
+  { name: 'Projects', href: '#projects' },
+];
+```
+
+- [ ] **Step 2: Add the same "Education" nav link to `src/components/header/MobileMenu.tsx`**
+
+Change:
+
+```tsx
+const navLinks = [
+  { name: 'Experience', href: '#experience' },
+  { name: 'Projects', href: '#projects' },
+];
+```
+
+to:
+
+```tsx
+const navLinks = [
+  { name: 'Experience', href: '#experience' },
+  { name: 'Education', href: '#education' },
+  { name: 'Projects', href: '#projects' },
+];
+```
+
+- [ ] **Step 3: Add spacing between the Education timeline and the Certifications & Achievements badge grid in `src/components/EducationCertifications.tsx`**
+
+Change:
+
+```tsx
+          <TimelineSection title="Education" icon={GraduationCap} items={education} />
+
+          <div>
+            <div className="flex items-center gap-2 mb-8 border-b border-primary/20 pb-2">
+              <Award size={24} className="text-primary" />
+              <h3 className="text-2xl font-bold uppercase tracking-wider">Certifications & Achievements</h3>
+            </div>
+```
+
+to:
+
+```tsx
+          <TimelineSection title="Education" icon={GraduationCap} items={education} />
+
+          <div className="mt-10">
+            <div className="flex items-center gap-2 mb-8 border-b border-primary/20 pb-2">
+              <Award size={24} className="text-primary" />
+              <h3 className="text-2xl font-bold uppercase tracking-wider">Certifications & Achievements</h3>
+            </div>
+```
+
+- [ ] **Step 4: Remove the redundant "Contact" sub-heading in `src/components/Contact.tsx`**
+
+The section already shows a heading via `<SectionTitle title="Get in Touch" subtitle="Contact Me" />` right above this block — the inner `<h3>Contact</h3>` duplicates that. Remove the wrapping `<div>`/`<h3>` and keep just the tagline paragraph.
+
+Change:
+
+```tsx
+          <div ref={contactRef} className="reveal-text space-y-6">
+            <div>
+              <h3 className="text-xl font-bold mb-2">Contact</h3>
+              <p className="text-muted-foreground">
+                Ready to collaborate? Let's get in touch!
+              </p>
+            </div>
+
+            <div className="flex flex-col items-center gap-3">
+```
+
+to:
+
+```tsx
+          <div ref={contactRef} className="reveal-text space-y-6">
+            <p className="text-muted-foreground">
+              Ready to collaborate? Let's get in touch!
+            </p>
+
+            <div className="flex flex-col items-center gap-3">
+```
+
+- [ ] **Step 5: Verify**
+
+Run: `npx tsc --noEmit` — expect no errors.
+Run: `npm run lint` — expect no new errors (baseline at this point: 3 pre-existing errors — `command.tsx:24`, `textarea.tsx:5`, `tailwind.config.ts` require-import line).
+Run: `npm run build` — expect success.
+Check in the browser (dev server already running on port 8080):
+- Header nav (desktop and mobile) now shows Experience, Education, Projects in that order, and clicking "Education" scrolls to the Education & Certifications section.
+- There's visibly more breathing room between the last Education timeline entry and the "Certifications & Achievements" heading.
+- The Contact section shows only ONE heading ("Get in Touch", from the pill+title pattern used by every other section) directly followed by the "Ready to collaborate? Let's get in touch!" tagline — no second "Contact" sub-heading above it.
+
+- [ ] **Step 6: Commit**
+
+```bash
+git add src/components/header/NavigationLinks.tsx src/components/header/MobileMenu.tsx src/components/EducationCertifications.tsx src/components/Contact.tsx
+git commit -m "feat: add Education to nav, space out certifications, remove duplicate Contact heading"
+```
