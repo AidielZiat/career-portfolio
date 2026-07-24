@@ -6,24 +6,27 @@ import { Card, CardContent } from './ui/card';
 interface ProjectItemProps {
   icon: React.ReactNode;
   title: string;
-  subtitle?: string;
   description: string;
   outcome: string;
   techStack: string[];
+  imageSrc?: string;
+  caseUrl?: string;
 }
 
-const ProjectCard = ({ icon, title, subtitle, description, outcome, techStack }: ProjectItemProps) => (
-  <Card className="h-full bg-card border-border hover:border-primary/40 transition-all duration-300 group flex flex-col">
-    <CardContent className="p-8 flex flex-col flex-grow">
-      <div className="flex items-start gap-4 mb-6">
-        <div className="p-3 rounded-xl bg-primary/10 text-primary group-hover:scale-110 transition-transform duration-300">
+const ProjectCard = ({ icon, title, description, outcome, techStack, imageSrc, caseUrl }: ProjectItemProps) => (
+  <Card className="h-full bg-card border-border hover:border-primary/40 transition-all duration-300 group flex flex-col overflow-hidden">
+    <div className="h-48 w-full flex items-center justify-center bg-muted border-b border-border overflow-hidden">
+      {imageSrc ? (
+        <img src={imageSrc} alt={title} className="h-full w-full object-cover" />
+      ) : (
+        <div className="text-primary/30 [&_svg]:h-16 [&_svg]:w-16 group-hover:scale-110 transition-transform duration-300">
           {icon}
         </div>
-        <div className="flex-grow">
-          <h3 className="text-xl font-bold leading-tight">{title}</h3>
-          {subtitle && <p className="text-primary/80 text-sm font-semibold mt-1 uppercase tracking-wide">{subtitle}</p>}
-        </div>
-      </div>
+      )}
+    </div>
+
+    <CardContent className="p-8 flex flex-col flex-grow">
+      <h3 className="text-xl font-bold leading-tight mb-4">{title}</h3>
 
       <p className="text-foreground/80 text-sm mb-4 leading-relaxed">
         {description}
@@ -35,6 +38,25 @@ const ProjectCard = ({ icon, title, subtitle, description, outcome, techStack }:
       </p>
 
       <div className="mt-auto pt-6 border-t border-border">
+        <div className="mb-4">
+          {caseUrl ? (
+            <a
+              href={caseUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block rounded-full border border-primary/30 bg-primary/5 px-4 py-1.5 text-xs font-semibold text-primary hover:bg-primary/10 transition-colors"
+            >
+              View Case
+            </a>
+          ) : (
+            <span
+              aria-label="Case link not available yet"
+              className="inline-block cursor-not-allowed rounded-full border border-border bg-muted px-4 py-1.5 text-xs font-semibold text-muted-foreground opacity-70"
+            >
+              View Case
+            </span>
+          )}
+        </div>
         <div className="flex flex-wrap gap-2">
           {techStack.map((tech, i) => (
             <span key={i} className="px-3 py-1 text-[10px] uppercase tracking-wider font-bold bg-primary/5 text-primary/80 border border-primary/10 rounded-md">
@@ -51,7 +73,6 @@ const projects: ProjectItemProps[] = [
   {
     icon: <Cloud className="h-7 w-7" />,
     title: "Personal Portfolio & Serverless Architecture",
-    subtitle: "Cloud Engineering",
     description: "Designed and deployed this site's own serverless backend on AWS — CI/CD, edge caching, WAF-protected APIs — as a live demonstration of production cloud architecture.",
     outcome: "A zero-maintenance, globally-cached site with sub-second load times and no idle infrastructure cost.",
     techStack: ["React", "TypeScript", "AWS Amplify", "Lambda", "DynamoDB", "CloudFront"]
@@ -59,7 +80,6 @@ const projects: ProjectItemProps[] = [
   {
     icon: <BrainCircuit className="h-7 w-7" />,
     title: "Agentic GraphRAG Framework",
-    subtitle: "Master's Thesis · Universiti Malaya",
     description: "Built a hybrid knowledge-graph and retrieval system using LangChain and Neo4j to reason over cross-jurisdictional regulatory text across Southeast Asian markets.",
     outcome: "A framework that answers multi-hop regulatory compliance questions flat RAG pipelines can't handle.",
     techStack: ["Python", "LangChain", "Neo4j", "Bedrock"]
@@ -67,7 +87,6 @@ const projects: ProjectItemProps[] = [
   {
     icon: <Smartphone className="h-7 w-7" />,
     title: "MYSignLingo",
-    subtitle: "Master's Coursework · Universiti Malaya",
     description: "Built a real-time computer-vision app translating sign language to text, using MediaPipe for hand tracking and a TensorFlow classifier.",
     outcome: "A working prototype recognizing gestures in real time from a standard webcam, no specialized hardware.",
     techStack: ["Computer Vision", "Python", "MediaPipe", "TensorFlow"]
