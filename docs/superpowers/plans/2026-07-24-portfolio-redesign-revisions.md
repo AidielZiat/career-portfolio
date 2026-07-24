@@ -994,3 +994,157 @@ Check in the browser (dev server already running on port 8080):
 git add src/components/header/NavigationLinks.tsx src/components/header/MobileMenu.tsx src/components/EducationCertifications.tsx src/components/Contact.tsx
 git commit -m "feat: add Education to nav, space out certifications, remove duplicate Contact heading"
 ```
+
+---
+
+### Task R10: Restyle project cards with an image placeholder, a "View Case" button, and no subtitle
+
+**Files:**
+- Modify: `src/components/Projects.tsx`
+
+**Interfaces:** `id="projects"` unchanged. `ProjectItemProps` drops `subtitle` and gains two new optional fields: `imageSrc?: string` (placeholder-now/real-later, same convention as `logoSrc`/`badgeSrc` elsewhere in this codebase — when set, renders an `<img>`; when unset, renders the project's existing icon enlarged as a placeholder graphic) and `caseUrl?: string` (when set, "View Case" renders as a real link opening in a new tab; when unset, it renders as a visibly disabled placeholder button, since the user hasn't decided yet whether each project's case link will point to a report or a GitHub repo). The marquee mechanics from Task R8 (`.projects-marquee`/`.projects-marquee-track`, the doubled `trackProjects` array, `animations.css`) are untouched by this task — only `ProjectCard`'s internal layout and the `ProjectItemProps` shape change.
+
+**Context:** The user asked for the project cards to follow the format from their colleague's site: an image area at the top of each card (a placeholder for now, since there are no real project screenshots yet), a "View Case" button (they plan to point it at either a written report or a GitHub link later, but haven't decided/provided the URLs yet), and no subtitle line under the title — just the project name.
+
+- [ ] **Step 1: Rewrite `src/components/Projects.tsx`**
+
+```tsx
+import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { Cloud, BrainCircuit, Smartphone } from 'lucide-react';
+import SectionTitle from './ui/SectionTitle';
+import { Card, CardContent } from './ui/card';
+
+interface ProjectItemProps {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  outcome: string;
+  techStack: string[];
+  imageSrc?: string;
+  caseUrl?: string;
+}
+
+const ProjectCard = ({ icon, title, description, outcome, techStack, imageSrc, caseUrl }: ProjectItemProps) => (
+  <Card className="h-full bg-card border-border hover:border-primary/40 transition-all duration-300 group flex flex-col overflow-hidden">
+    <div className="h-48 w-full flex items-center justify-center bg-muted border-b border-border overflow-hidden">
+      {imageSrc ? (
+        <img src={imageSrc} alt={title} className="h-full w-full object-cover" />
+      ) : (
+        <div className="text-primary/30 [&_svg]:h-16 [&_svg]:w-16 group-hover:scale-110 transition-transform duration-300">
+          {icon}
+        </div>
+      )}
+    </div>
+
+    <CardContent className="p-8 flex flex-col flex-grow">
+      <h3 className="text-xl font-bold leading-tight mb-4">{title}</h3>
+
+      <p className="text-foreground/80 text-sm mb-4 leading-relaxed">
+        {description}
+      </p>
+
+      <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
+        <span className="font-semibold text-foreground">Outcome: </span>
+        {outcome}
+      </p>
+
+      <div className="mt-auto pt-6 border-t border-border">
+        <div className="mb-4">
+          {caseUrl ? (
+            <a
+              href={caseUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block rounded-full border border-primary/30 bg-primary/5 px-4 py-1.5 text-xs font-semibold text-primary hover:bg-primary/10 transition-colors"
+            >
+              View Case
+            </a>
+          ) : (
+            <span
+              aria-label="Case link not available yet"
+              className="inline-block cursor-not-allowed rounded-full border border-border bg-muted px-4 py-1.5 text-xs font-semibold text-muted-foreground opacity-70"
+            >
+              View Case
+            </span>
+          )}
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {techStack.map((tech, i) => (
+            <span key={i} className="px-3 py-1 text-[10px] uppercase tracking-wider font-bold bg-primary/5 text-primary/80 border border-primary/10 rounded-md">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+    </CardContent>
+  </Card>
+);
+
+const projects: ProjectItemProps[] = [
+  {
+    icon: <Cloud className="h-7 w-7" />,
+    title: "Personal Portfolio & Serverless Architecture",
+    description: "Designed and deployed this site's own serverless backend on AWS — CI/CD, edge caching, WAF-protected APIs — as a live demonstration of production cloud architecture.",
+    outcome: "A zero-maintenance, globally-cached site with sub-second load times and no idle infrastructure cost.",
+    techStack: ["React", "TypeScript", "AWS Amplify", "Lambda", "DynamoDB", "CloudFront"]
+  },
+  {
+    icon: <BrainCircuit className="h-7 w-7" />,
+    title: "Agentic GraphRAG Framework",
+    description: "Built a hybrid knowledge-graph and retrieval system using LangChain and Neo4j to reason over cross-jurisdictional regulatory text across Southeast Asian markets.",
+    outcome: "A framework that answers multi-hop regulatory compliance questions flat RAG pipelines can't handle.",
+    techStack: ["Python", "LangChain", "Neo4j", "Bedrock"]
+  },
+  {
+    icon: <Smartphone className="h-7 w-7" />,
+    title: "MYSignLingo",
+    description: "Built a real-time computer-vision app translating sign language to text, using MediaPipe for hand tracking and a TensorFlow classifier.",
+    outcome: "A working prototype recognizing gestures in real time from a standard webcam, no specialized hardware.",
+    techStack: ["Computer Vision", "Python", "MediaPipe", "TensorFlow"]
+  }
+];
+
+// Rendered twice back-to-back so the marquee's `translateX(-50%)` end point
+// lines up exactly with where the duplicate set begins, making the loop seamless.
+const trackProjects = [...projects, ...projects];
+
+const ProjectsSection = () => {
+  const titleRef = useScrollReveal<HTMLDivElement>();
+
+  return (
+    <section id="projects" className="section bg-background">
+      <div className="section-inner">
+        <div ref={titleRef} className="reveal-text">
+          <SectionTitle subtitle="Featured Work" title="Projects" align="left" />
+        </div>
+
+        <div className="projects-marquee">
+          <div className="projects-marquee-track">
+            {trackProjects.map((project, i) => (
+              <div key={i} className="w-[320px] shrink-0 pr-8">
+                <ProjectCard {...project} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ProjectsSection;
+```
+
+- [ ] **Step 2: Verify**
+
+Run: `npx tsc --noEmit` — expect no errors.
+Run: `npm run lint` — expect no new errors (baseline at this point: 3 pre-existing errors — `command.tsx:24`, `textarea.tsx:5`, `tailwind.config.ts` require-import line).
+Run: `npm run build` — expect success.
+Check in the browser (dev server already running on port 8080): each project card now shows an image-placeholder box at the top (the project's icon, enlarged, since no real images are wired up yet), the title alone directly below it (no subtitle line), then description/outcome as before, then a visibly-disabled "View Case" pill button (grayed out, not clickable — since no `caseUrl` is set on any project yet) above the tech-stack tags. The continuous marquee scroll from R8 still works.
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add src/components/Projects.tsx
+git commit -m "feat: add project image placeholder, View Case button, drop subtitle"
+```
