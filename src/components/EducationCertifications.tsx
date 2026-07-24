@@ -1,7 +1,7 @@
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import SectionTitle from './ui/SectionTitle';
 import TimelineSection, { TimelineItem } from './ui/TimelineSection';
-import { GraduationCap, Award, Trophy } from 'lucide-react';
+import { GraduationCap, Award } from 'lucide-react';
 
 const education: TimelineItem[] = [
   {
@@ -24,21 +24,18 @@ const education: TimelineItem[] = [
   }
 ];
 
-const certifications: TimelineItem[] = [
-  { title: "AWS Certified Machine Learning Engineer - Associate", subtitle: "Amazon Web Services", period: "2026" },
-  { title: "AWS Cloud Practitioner", subtitle: "Amazon Web Services", period: "2025" },
-  { title: "Applied Data Science Lab", subtitle: "WorldQuant University", period: "2024" }
-];
+interface BadgeItem {
+  name: string;
+  issuer: string;
+  badgeSrc?: string;
+}
 
-const achievements = [
-  {
-    title: "Yayasan Peneraju Scholarship",
-    subtitle: "Professional Certification Funding"
-  },
-  {
-    title: "MARA Young Talent Program (YTP) Scholarship",
-    subtitle: "Selected for an education programme to study at a top 50 university in the United Kingdom."
-  }
+const certificationsAndAchievements: BadgeItem[] = [
+  { name: "AWS Certified Machine Learning Engineer - Associate", issuer: "Amazon Web Services" },
+  { name: "AWS Cloud Practitioner", issuer: "Amazon Web Services" },
+  { name: "Applied Data Science Lab", issuer: "WorldQuant University" },
+  { name: "Yayasan Peneraju Scholarship", issuer: "Professional Certification Funding" },
+  { name: "MARA Young Talent Program (YTP) Scholarship", issuer: "UK University Placement" }
 ];
 
 const EducationCertifications = () => {
@@ -49,25 +46,31 @@ const EducationCertifications = () => {
       <div className="section-inner">
         <SectionTitle title="Education & Certifications" subtitle="Academic Background" />
 
-        <div ref={sectionRef} className="reveal-text grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-8">
-          <div>
-            <TimelineSection title="Education" icon={GraduationCap} items={education} />
-            <TimelineSection title="Certifications" icon={Award} items={certifications} />
-          </div>
+        <div ref={sectionRef} className="reveal-text max-w-4xl mx-auto">
+          <TimelineSection title="Education" icon={GraduationCap} items={education} />
 
           <div>
             <div className="flex items-center gap-2 mb-8 border-b border-primary/20 pb-2">
-              <Trophy size={24} className="text-primary" />
-              <h3 className="text-2xl font-bold uppercase tracking-wider">Achievements</h3>
+              <Award size={24} className="text-primary" />
+              <h3 className="text-2xl font-bold uppercase tracking-wider">Certifications & Achievements</h3>
             </div>
-            <ul className="space-y-4 ml-3">
-              {achievements.map((achievement, i) => (
-                <li key={i} className="flex flex-col">
-                  <span className="font-bold">{achievement.title}</span>
-                  <span className="text-sm text-muted-foreground">{achievement.subtitle}</span>
-                </li>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
+              {certificationsAndAchievements.map((badge, i) => (
+                <div key={i} className="flex flex-col items-center text-center gap-3">
+                  {badge.badgeSrc ? (
+                    <img src={badge.badgeSrc} alt={badge.name} className="w-20 h-20 object-contain" />
+                  ) : (
+                    <div className="w-20 h-20 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                      <Award className="w-9 h-9 text-primary" />
+                    </div>
+                  )}
+                  <div>
+                    <p className="text-sm font-semibold leading-tight">{badge.name}</p>
+                    <p className="text-xs text-muted-foreground mt-1">{badge.issuer}</p>
+                  </div>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         </div>
       </div>
