@@ -19,12 +19,9 @@ const Contact = () => {
 
         <div className="max-w-md mx-auto text-center">
           <div ref={contactRef} className="reveal-text space-y-6">
-            <div>
-              <h3 className="text-xl font-bold mb-2">Contact</h3>
-              <p className="text-muted-foreground">
-                Ready to collaborate? Let's get in touch!
-              </p>
-            </div>
+            <p className="text-muted-foreground">
+              Ready to collaborate? Let's get in touch!
+            </p>
 
             <div className="flex flex-col items-center gap-3">
               <a

@@ -49,7 +49,7 @@ const EducationCertifications = () => {
         <div ref={sectionRef} className="reveal-text max-w-4xl mx-auto">
           <TimelineSection title="Education" icon={GraduationCap} items={education} />
 
-          <div>
+          <div className="mt-10">
             <div className="flex items-center gap-2 mb-8 border-b border-primary/20 pb-2">
               <Award size={24} className="text-primary" />
               <h3 className="text-2xl font-bold uppercase tracking-wider">Certifications & Achievements</h3>
