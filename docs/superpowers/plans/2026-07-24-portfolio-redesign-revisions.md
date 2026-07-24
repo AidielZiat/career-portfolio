@@ -710,3 +710,161 @@ Check in the browser: after Contact, the page ends with a thin bar showing only 
 git add src/components/Footer.tsx
 git commit -m "feat: trim Footer to copyright and Back to top only"
 ```
+
+---
+
+### Task R8: Replace the snap-carousel Projects with a continuously-scrolling marquee
+
+**Files:**
+- Modify: `src/components/Projects.tsx`
+- Modify: `src/styles/animations.css`
+
+**Interfaces:** `id="projects"` unchanged. `ProjectItemProps`/`ProjectCard` keep the same shape as R5, minus the `useScrollReveal` per-card wrapper (already dropped in R5). This task removes R5's embla `Carousel`/`CarouselContent`/`CarouselItem`/`CarouselPrevious`/`CarouselNext`/`CarouselApi` usage and the `setApi`/`useEffect`/`useRef`/`useState`/`isHovering`/`setInterval` autoplay machinery entirely, replacing it with a pure-CSS infinite marquee (continuous constant-speed horizontal scroll, not discrete slide-and-pause), reusing the `@keyframes marquee` already defined in `src/styles/animations.css` (previously only used by the unrelated `.marquee`/`.marquee-content` utility classes, which stay as-is — this task adds new, separate classes for the project cards row rather than reusing `.marquee-content` directly, since that class is `inline-block`/`whitespace-nowrap`-based and the project cards need `flex`).
+
+**Context:** The user showed the actual rendered HTML of their colleague's Projects section, which uses a continuously-translating flex track (`transform: translate3d(...)`) — always moving at a constant rate, not embla's discrete snap-to-next-slide-every-N-seconds behavior implemented in R5. This task swaps to that continuous-motion technique. To keep scope tight, this implements the core ask (constant-speed auto-scroll, pauses on hover) without the colleague's additional drag-to-scroll and manual prev/next-button position-tracking, which would be substantially more code for a "nice to have" on top of the already-satisfied core request.
+
+- [ ] **Step 1: Add marquee-track keyframe reuse and new pause-on-hover CSS to `src/styles/animations.css`**
+
+Add this block right after the existing `@keyframes marquee { ... }` block (do not duplicate the keyframe — reuse it by name):
+
+```css
+/* Continuously-scrolling project cards row (reuses the `marquee` keyframe above) */
+.projects-marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+}
+
+.projects-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+.projects-marquee:hover .projects-marquee-track {
+  animation-play-state: paused;
+}
+```
+
+- [ ] **Step 2: Rewrite `src/components/Projects.tsx`**
+
+```tsx
+import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { Cloud, BrainCircuit, Smartphone } from 'lucide-react';
+import SectionTitle from './ui/SectionTitle';
+import { Card, CardContent } from './ui/card';
+
+interface ProjectItemProps {
+  icon: React.ReactNode;
+  title: string;
+  subtitle?: string;
+  description: string;
+  outcome: string;
+  techStack: string[];
+}
+
+const ProjectCard = ({ icon, title, subtitle, description, outcome, techStack }: ProjectItemProps) => (
+  <Card className="h-full bg-card border-border hover:border-primary/40 transition-all duration-300 group flex flex-col">
+    <CardContent className="p-8 flex flex-col flex-grow">
+      <div className="flex items-start gap-4 mb-6">
+        <div className="p-3 rounded-xl bg-primary/10 text-primary group-hover:scale-110 transition-transform duration-300">
+          {icon}
+        </div>
+        <div className="flex-grow">
+          <h3 className="text-xl font-bold leading-tight">{title}</h3>
+          {subtitle && <p className="text-primary/80 text-sm font-semibold mt-1 uppercase tracking-wide">{subtitle}</p>}
+        </div>
+      </div>
+
+      <p className="text-foreground/80 text-sm mb-4 leading-relaxed">
+        {description}
+      </p>
+
+      <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
+        <span className="font-semibold text-foreground">Outcome: </span>
+        {outcome}
+      </p>
+
+      <div className="mt-auto pt-6 border-t border-border">
+        <div className="flex flex-wrap gap-2">
+          {techStack.map((tech, i) => (
+            <span key={i} className="px-3 py-1 text-[10px] uppercase tracking-wider font-bold bg-primary/5 text-primary/80 border border-primary/10 rounded-md">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+    </CardContent>
+  </Card>
+);
+
+const projects: ProjectItemProps[] = [
+  {
+    icon: <Cloud className="h-7 w-7" />,
+    title: "Personal Portfolio & Serverless Architecture",
+    subtitle: "Cloud Engineering",
+    description: "Designed and deployed this site's own serverless backend on AWS — CI/CD, edge caching, WAF-protected APIs — as a live demonstration of production cloud architecture.",
+    outcome: "A zero-maintenance, globally-cached site with sub-second load times and no idle infrastructure cost.",
+    techStack: ["React", "TypeScript", "AWS Amplify", "Lambda", "DynamoDB", "CloudFront"]
+  },
+  {
+    icon: <BrainCircuit className="h-7 w-7" />,
+    title: "Agentic GraphRAG Framework",
+    subtitle: "Master's Thesis · Universiti Malaya",
+    description: "Built a hybrid knowledge-graph and retrieval system using LangChain and Neo4j to reason over cross-jurisdictional regulatory text across Southeast Asian markets.",
+    outcome: "A framework that answers multi-hop regulatory compliance questions flat RAG pipelines can't handle.",
+    techStack: ["Python", "LangChain", "Neo4j", "Bedrock"]
+  },
+  {
+    icon: <Smartphone className="h-7 w-7" />,
+    title: "MYSignLingo",
+    subtitle: "Master's Coursework · Universiti Malaya",
+    description: "Built a real-time computer-vision app translating sign language to text, using MediaPipe for hand tracking and a TensorFlow classifier.",
+    outcome: "A working prototype recognizing gestures in real time from a standard webcam, no specialized hardware.",
+    techStack: ["Computer Vision", "Python", "MediaPipe", "TensorFlow"]
+  }
+];
+
+// Rendered twice back-to-back so the marquee's `translateX(-50%)` end point
+// lines up exactly with where the duplicate set begins, making the loop seamless.
+const trackProjects = [...projects, ...projects];
+
+const ProjectsSection = () => {
+  const titleRef = useScrollReveal<HTMLDivElement>();
+
+  return (
+    <section id="projects" className="section bg-background">
+      <div className="section-inner">
+        <div ref={titleRef} className="reveal-text">
+          <SectionTitle subtitle="Featured Work" title="Projects" align="left" />
+        </div>
+
+        <div className="projects-marquee">
+          <div className="projects-marquee-track">
+            {trackProjects.map((project, i) => (
+              <div key={i} className="w-[320px] shrink-0 pr-8">
+                <ProjectCard {...project} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ProjectsSection;
+```
+
+- [ ] **Step 3: Verify**
+
+Run: `npx tsc --noEmit` — expect no errors.
+Run: `npm run lint` — expect no new errors (baseline at this point: 3 pre-existing errors — `command.tsx:24`, `textarea.tsx:5`, `tailwind.config.ts` require-import line).
+Run: `npm run build` — expect success.
+Check in the browser (dev server already running on port 8080): the Projects row scrolls continuously and smoothly to the left at a constant speed (not snapping card-by-card with pauses), loops seamlessly with no visible jump/reset, and stops moving while the mouse hovers anywhere over the row, resuming when the mouse leaves. Confirm `package.json` is untouched (no new dependency — this removes the embla `Carousel` usage rather than adding anything).
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add src/components/Projects.tsx src/styles/animations.css
+git commit -m "feat: replace snap-carousel Projects with a continuous marquee"
+```
