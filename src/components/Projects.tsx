@@ -1,16 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { Cloud, BrainCircuit, Smartphone } from 'lucide-react';
 import SectionTitle from './ui/SectionTitle';
 import { Card, CardContent } from './ui/card';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
-  type CarouselApi,
-} from './ui/carousel';
 
 interface ProjectItemProps {
   icon: React.ReactNode;
@@ -83,27 +74,12 @@ const projects: ProjectItemProps[] = [
   }
 ];
 
-const AUTOPLAY_INTERVAL_MS = 4000;
+// Rendered twice back-to-back so the marquee's `translateX(-50%)` end point
+// lines up exactly with where the duplicate set begins, making the loop seamless.
+const trackProjects = [...projects, ...projects];
 
 const ProjectsSection = () => {
   const titleRef = useScrollReveal<HTMLDivElement>();
-  const [api, setApi] = useState<CarouselApi>();
-  const isHovering = useRef(false);
-
-  useEffect(() => {
-    if (!api) return;
-
-    const interval = setInterval(() => {
-      if (isHovering.current) return;
-      if (api.canScrollNext()) {
-        api.scrollNext();
-      } else {
-        api.scrollTo(0);
-      }
-    }, AUTOPLAY_INTERVAL_MS);
-
-    return () => clearInterval(interval);
-  }, [api]);
 
   return (
     <section id="projects" className="section bg-background">
@@ -112,23 +88,14 @@ const ProjectsSection = () => {
           <SectionTitle subtitle="Featured Work" title="Projects" align="left" />
         </div>
 
-        <div
-          onMouseEnter={() => { isHovering.current = true; }}
-          onMouseLeave={() => { isHovering.current = false; }}
-        >
-          <Carousel setApi={setApi} opts={{ loop: true, align: "start" }} className="w-full">
-            <CarouselContent>
-              {projects.map((project, i) => (
-                <CarouselItem key={i} className="basis-full sm:basis-1/2 lg:basis-1/3">
-                  <ProjectCard {...project} />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <div className="flex justify-center gap-3 mt-8">
-              <CarouselPrevious className="static translate-y-0" />
-              <CarouselNext className="static translate-y-0" />
-            </div>
-          </Carousel>
+        <div className="projects-marquee">
+          <div className="projects-marquee-track">
+            {trackProjects.map((project, i) => (
+              <div key={i} className="w-[320px] shrink-0 pr-8">
+                <ProjectCard {...project} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

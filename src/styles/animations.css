@@ -28,6 +28,22 @@
   to { transform: translateX(-50%); }
 }
 
+/* Continuously-scrolling project cards row (reuses the `marquee` keyframe above) */
+.projects-marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+}
+
+.projects-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+.projects-marquee:hover .projects-marquee-track {
+  animation-play-state: paused;
+}
+
 /* Floating particles animation */
 .particles-container {
   @apply fixed inset-0 w-full h-full pointer-events-none z-0 overflow-hidden;
