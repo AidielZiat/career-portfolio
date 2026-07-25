@@ -6,6 +6,7 @@ export interface TimelineItem {
   period: string;
   description?: string;
   details?: string[];
+  logoSrc?: string;
 }
 
 interface TimelineSectionProps {
@@ -23,7 +24,13 @@ const TimelineSection = ({ title, icon: Icon, items }: TimelineSectionProps) => 
     <div className="space-y-8 border-l-2 border-primary/20 ml-3 pl-8 relative">
       {items.map((item, index) => (
         <div key={index} className="relative">
-          <div className="absolute -left-[41px] top-1.5 w-4 h-4 rounded-full bg-primary border-4 border-background" />
+          {item.logoSrc ? (
+            <div className="absolute -left-[48px] top-0 w-8 h-8 rounded-full bg-card border border-border overflow-hidden flex items-center justify-center">
+              <img src={item.logoSrc} alt="" className="w-full h-full object-contain p-1" />
+            </div>
+          ) : (
+            <div className="absolute -left-[41px] top-1.5 w-4 h-4 rounded-full bg-primary border-4 border-background" />
+          )}
           <div className="flex flex-col gap-1">
             <span className="text-sm font-semibold text-primary/80">{item.period}</span>
             <h4 className="text-lg font-bold leading-tight">{item.title}</h4>
