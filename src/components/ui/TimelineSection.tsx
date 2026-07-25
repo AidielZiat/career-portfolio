@@ -29,7 +29,7 @@ const TimelineSection = ({ title, icon: Icon, items }: TimelineSectionProps) => 
           )}
           <div className={item.logoSrc ? 'flex items-start gap-5' : ''}>
             {item.logoSrc && (
-              <img src={item.logoSrc} alt="" className="w-20 h-20 object-contain shrink-0" />
+              <img src={item.logoSrc} alt="" className="w-16 h-16 object-contain shrink-0" />
             )}
             <div className="flex flex-col gap-1">
               <span className="text-sm font-semibold text-primary/80">{item.period}</span>
