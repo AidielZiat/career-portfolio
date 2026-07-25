@@ -25,13 +25,13 @@ const TimelineSection = ({ title, icon: Icon, items }: TimelineSectionProps) => 
       {items.map((item, index) => (
         <div key={index} className="relative">
           {item.logoSrc ? (
-            <div className="absolute -left-[64px] top-0 w-16 h-16 rounded-full bg-card border border-border shadow-sm overflow-hidden flex items-center justify-center">
+            <div className="absolute -left-[72px] top-0 w-20 h-20 rounded-full bg-card shadow-sm overflow-hidden flex items-center justify-center">
               <img src={item.logoSrc} alt="" className="w-full h-full object-contain p-2" />
             </div>
           ) : (
             <div className="absolute -left-[41px] top-1.5 w-4 h-4 rounded-full bg-primary border-4 border-background" />
           )}
-          <div className={`flex flex-col gap-1 ${item.logoSrc ? 'ml-4' : ''}`}>
+          <div className={`flex flex-col gap-1 ${item.logoSrc ? 'ml-6' : ''}`}>
             <span className="text-sm font-semibold text-primary/80">{item.period}</span>
             <h4 className="text-lg font-bold leading-tight">{item.title}</h4>
             <p className="text-muted-foreground font-medium">{item.subtitle}</p>
