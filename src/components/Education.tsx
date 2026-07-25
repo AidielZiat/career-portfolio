@@ -1,7 +1,6 @@
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import SectionTitle from './ui/SectionTitle';
 import TimelineSection, { TimelineItem } from './ui/TimelineSection';
-import { GraduationCap } from 'lucide-react';
 
 const education: TimelineItem[] = [
   {
@@ -16,7 +15,7 @@ const education: TimelineItem[] = [
     subtitle: "The University of Manchester",
     period: "2019 - 2022",
     description: "First Class Honours. Specialized in Multivariate Statistics and Machine Learning.",
-    logoSrc: "/logos/manchester.jpeg"
+    logoSrc: "/logos/manchester.png"
   },
   {
     title: "International Baccalaureate (IB) Diploma",
@@ -36,7 +35,7 @@ const Education = () => {
         <SectionTitle title="Education" subtitle="Academic Background" />
 
         <div ref={sectionRef} className="reveal-text max-w-4xl mx-auto">
-          <TimelineSection title="Education" icon={GraduationCap} items={education} />
+          <TimelineSection items={education} />
         </div>
       </div>
     </section>

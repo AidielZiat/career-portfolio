@@ -10,17 +10,19 @@ export interface TimelineItem {
 }
 
 interface TimelineSectionProps {
-  title: string;
-  icon: LucideIcon;
+  title?: string;
+  icon?: LucideIcon;
   items: TimelineItem[];
 }
 
 const TimelineSection = ({ title, icon: Icon, items }: TimelineSectionProps) => (
   <div className="mb-12">
-    <div className="flex items-center gap-2 mb-8 border-b border-primary/20 pb-2">
-      <Icon size={24} className="text-primary" />
-      <h3 className="text-2xl font-bold uppercase tracking-wider">{title}</h3>
-    </div>
+    {title && Icon && (
+      <div className="flex items-center gap-2 mb-8 border-b border-primary/20 pb-2">
+        <Icon size={24} className="text-primary" />
+        <h3 className="text-2xl font-bold uppercase tracking-wider">{title}</h3>
+      </div>
+    )}
     <div className="space-y-8 border-l-2 border-primary/20 ml-3 pl-8 relative">
       {items.map((item, index) => (
         <div key={index} className="relative">

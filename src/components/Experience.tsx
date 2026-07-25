@@ -24,7 +24,7 @@ const workExperience: WorkExperienceItem[] = [
     logoSrc: "/logos/deloitte.jpeg",
     role: "Consultant, AI & Data",
     period: "2024 - Present",
-    summary: "Lead data engineer for QA automation using AWS Bedrock and Transcribe, and architected customer churn prediction systems on SageMaker and EventBridge.",
+    summary: "Data & AI engineer delivering end-to-end cloud data pipelines, ML-driven solutions, and analytics tools across FSI and internal clients on AWS and Azure.",
     highlights: [
       {
         label: "Data architecture & engineering",
@@ -54,7 +54,7 @@ const workExperience: WorkExperienceItem[] = [
     logoSrc: "/logos/pwc.jpeg",
     role: "Associate, Financial Risk",
     period: "2022 - 2024",
-    summary: "Automated IFRS 9 credit risk modeling workflows in Python and R, and built attrition models using LightGBM and XGBoost.",
+    summary: "Credit risk analyst building regulatory-compliant PD and ECL models, credit scorecards, and ML-based predictive analytics for financial services clients.",
     highlights: [
       {
         label: "Credit risk model development",
@@ -92,9 +92,9 @@ const Experience = () => {
 
                 <div className="flex flex-wrap items-start justify-between gap-2 mb-4">
                   <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-full bg-card border border-border shadow-sm flex items-center justify-center text-lg font-bold text-primary shrink-0 overflow-hidden">
+                    <div className="w-16 h-16 rounded-full bg-card border border-border shadow-sm flex items-center justify-center text-xl font-bold text-primary shrink-0">
                       {item.logoSrc ? (
-                        <img src={item.logoSrc} alt={item.company} className="w-full h-full object-contain p-1.5" />
+                        <img src={item.logoSrc} alt={item.company} className="w-full h-full object-contain rounded-full" />
                       ) : (
                         item.companyInitial
                       )}
