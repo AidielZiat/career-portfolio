@@ -21,11 +21,8 @@ const AnimatedLogo = () => {
     let particlesArray: Particle[] = [];
     const numberOfParticles = 20;
     
-    // Theme Colors synced with your portfolio's orange
-    // const primaryColor = 'rgba(249, 115, 22, 1)'; 
-    // const particleColor = 'rgba(249, 115, 22, 0.4)';
-    const primaryColor = 'rgba(57, 255, 20, 1)'; // Neon Green
-    const particleColor = 'rgba(57, 255, 20, 0.2)'; // Fainter particles for better clarity
+    const primaryColor = 'rgba(37, 99, 235, 1)'; // Cobalt
+    const particleColor = 'rgba(37, 99, 235, 0.25)'; // Fainter particles for better clarity
 
     class Particle {
       x: number; y: number; size: number; speedX: number; speedY: number;
@@ -116,7 +113,7 @@ const AnimatedLogo = () => {
   return (
     <canvas 
       ref={canvasRef} 
-      className="w-[30px] h-[30px] md:w-[45px] md:h-[45px] drop-shadow-[0_0_8px_rgba(249,115,22,0.3)]"
+      className="w-[30px] h-[30px] md:w-[45px] md:h-[45px] drop-shadow-[0_0_8px_rgba(37,99,235,0.3)]"
     />
   );
 };

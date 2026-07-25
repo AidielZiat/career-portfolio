@@ -1,164 +1,131 @@
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { ArrowRight } from 'lucide-react';
 import SectionTitle from './ui/SectionTitle';
-import { Calendar, GraduationCap, Award, Briefcase, Trophy, Code2 } from 'lucide-react';
 
-interface TimelineItem {
-  title: string;
-  subtitle: string;
-  period: string;
-  description?: string;
-  details?: string[];
+interface Highlight {
+  label: string;
+  text: string;
 }
 
-const education: TimelineItem[] = [
-  {
-    title: "Masters of Artificial Intelligence",
-    subtitle: "Universiti Malaya",
-    period: "2024 - 2026 (Expected)",
-    description: "Current CGPA: 4.0/4.0. Focused on Advanced Machine Learning and NLP."
-  },
-  {
-    title: "BSc (Hons) Mathematics and Statistics",
-    subtitle: "The University of Manchester",
-    period: "2019 - 2022",
-    description: "First Class Honours. Specialized in Multivariate Statistics and Machine Learning."
-  },
-  {
-    title: "International Baccalaureate (IB) Diploma",
-    subtitle: "MARA College, Banting",
-    period: "2017 - 2019",
-    description: "IB Score: 42/45 points."
-  }
-];
+interface WorkExperienceItem {
+  company: string;
+  companyInitial: string;
+  logoSrc?: string;
+  role: string;
+  period: string;
+  summary: string;
+  highlights: Highlight[];
+}
 
-const workExperience: TimelineItem[] = [
+const workExperience: WorkExperienceItem[] = [
   {
-    title: "Consultant (AI & Data)",
-    subtitle: "Deloitte Consulting SEA",
+    company: "Deloitte Consulting SEA",
+    companyInitial: "D",
+    logoSrc: "/logos/deloitte.jpeg",
+    role: "Consultant, AI & Data",
     period: "2024 - Present",
-    details: [
-      "Lead Data Engineer for QA Automation using AWS Bedrock and Transcribe.",
-      "Architected customer churn systems using SageMaker and EventBridge."
+    summary: "Data & AI engineer delivering end-to-end cloud data pipelines, ML-driven solutions, and analytics tools across FSI and internal clients on AWS and Azure.",
+    highlights: [
+      {
+        label: "Data architecture & engineering",
+        text: "Designed dimensional data models and end-to-end ETL pipelines across AWS and Azure ecosystems (S3, Glue, RDS, Databricks), building scalable data lakes that handled incremental loads, late-arriving data, and full auditability for enterprise-scale datasets."
+      },
+      {
+        label: "AI/ML solution delivery",
+        text: "Architected and deployed machine learning systems in production, including a SageMaker-based churn prediction model with automated EventBridge orchestration, and an LLM-powered sentiment analysis pipeline using AWS Bedrock and Amazon Transcribe for large-scale audio processing."
+      },
+      {
+        label: "Process automation & cost impact",
+        text: "Delivered automation solutions that generated measurable business value, including a ~40% reduction in operational costs through automated transcription and compliance monitoring workflows."
+      },
+      {
+        label: "Natural language & analytics tools",
+        text: "Built an AI chatbot enabling natural language querying of complex workforce data, integrated with Power BI to deliver a hybrid analytical experience for non-technical business users."
+      },
+      {
+        label: "Stakeholder management & governance",
+        text: "Led UAT coordination and sign-off across technology and business teams, and managed client/vendor relationships (including AWS) through weekly cadences and demonstrations to secure project funding and alignment."
+      }
     ]
   },
   {
-    title: "Associate (Financial Risk)",
-    subtitle: "PwC Malaysia",
+    company: "PwC Malaysia",
+    companyInitial: "P",
+    logoSrc: "/logos/pwc.jpeg",
+    role: "Associate, Financial Risk",
     period: "2022 - 2024",
-    details: [
-      "Automated IFRS 9 credit risk modeling workflows using Python and R.",
-      "Developed attrition models using LightGBM and XGBoost."
+    summary: "Credit risk analyst building regulatory-compliant PD and ECL models, credit scorecards, and ML-based predictive analytics for financial services clients.",
+    highlights: [
+      {
+        label: "Credit risk model development",
+        text: "Built Point-in-Time and Through-the-Cycle Probability of Default models using logistic regression, integrating macroeconomic variables (GDP growth, OPR, unemployment) to produce forward-looking, scenario-weighted PD estimates in line with MFRS9/IFRS9 regulatory requirements."
+      },
+      {
+        label: "Credit scorecard design & optimization",
+        text: "Developed application/behavioural scorecards using logistic regression with WoE binning and Information Value-based feature selection, optimizing cut-off thresholds by balancing Gini coefficient performance against portfolio risk appetite."
+      },
+      {
+        label: "Model validation & monitoring",
+        text: "Established robust validation frameworks using Gini/AUC metrics and Population Stability Index monitoring to ensure ongoing model performance and stability."
+      },
+      {
+        label: "Advanced analytics & ML",
+        text: "Applied machine learning techniques (LightGBM, XGBoost) with hyperparameter tuning (Optuna, GridSearchCV) and SHAP explainability on large-scale datasets to uncover predictive drivers of employee attrition."
+      }
     ]
-  }
-];
-
-const certifications: TimelineItem[] = [
-  { title: "AWS Certified Machine Learning Engineer - Associate", subtitle: "Amazon Web Services", period: "2026" },
-  { title: "AWS Cloud Practitioner", subtitle: "Amazon Web Services", period: "2025" },
-  { title: "Applied Data Science Lab", subtitle: "WorldQuant University", period: "2024" }
-];
-
-// Skills extracted directly from your CV 
-const skillCategories = [
-  { 
-    name: "Languages & Frameworks", 
-    skills: ["Python", "SQL", "R", "C++", "PyTorch", "TensorFlow", "LightGBM", "XGBoost"] 
-  },
-  { 
-    name: "Cloud & Data Engineering", 
-    skills: ["AWS", "SageMaker", "Step Functions", "Lambda", "S3", "Azure", "Databricks", "Glue"] 
   }
 ];
 
 const Experience = () => {
   const sectionRef = useScrollReveal<HTMLDivElement>();
 
-  const TimelineSection = ({ title, icon: Icon, items }: { title: string, icon: any, items: TimelineItem[] }) => (
-    <div className="mb-12">
-      <div className="flex items-center gap-2 mb-8 border-b border-primary/20 pb-2">
-        <Icon size={24} className="text-primary" />
-        <h3 className="text-2xl font-bold uppercase tracking-wider">{title}</h3>
-      </div>
-      <div className="space-y-8 border-l-2 border-primary/20 ml-3 pl-8 relative">
-        {items.map((item, index) => (
-          <div key={index} className="relative">
-            <div className="absolute -left-[41px] top-1.5 w-4 h-4 rounded-full bg-primary border-4 border-background" />
-            <div className="flex flex-col gap-1">
-              <span className="text-sm font-semibold text-primary/80">{item.period}</span>
-              <h4 className="text-lg font-bold leading-tight">{item.title}</h4>
-              <p className="text-muted-foreground font-medium">{item.subtitle}</p>
-              {item.description && <p className="text-sm text-foreground/70 mt-1">{item.description}</p>}
-              {item.details && (
-                <ul className="mt-2 space-y-1">
-                  {item.details.map((detail, i) => (
-                    <li key={i} className="text-xs text-foreground/60 flex gap-2">
-                      <span className="text-primary">•</span> {detail}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-
   return (
     <section id="experience" className="section bg-background">
       <div className="section-inner">
-        <SectionTitle title="Resume" subtitle="Career Journey" />
-        
-        <div ref={sectionRef} className="reveal-text grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-8">
-          {/* Left Column: Education & Certifications */}
-          <div>
-            <TimelineSection title="Education" icon={GraduationCap} items={education} />
-            <TimelineSection title="Certifications" icon={Award} items={certifications} />
-          </div>
+        <SectionTitle title="Work Experience" subtitle="Career Journey" />
 
-          {/* Right Column: Experience, Achievements & Skills */}
-          <div>
-            <TimelineSection title="Experience" icon={Briefcase} items={workExperience} />
-            
-            <div className="mb-12">
-              <div className="flex items-center gap-2 mb-8 border-b border-primary/20 pb-2">
-                <Trophy size={24} className="text-primary" />
-                <h3 className="text-2xl font-bold uppercase tracking-wider">Achievements</h3>
-              </div>
-              <ul className="space-y-4 ml-3 mb-12">
-                <li className="flex flex-col">
-                   <span className="font-bold">Yayasan Peneraju Scholarship</span>
-                   <span className="text-sm text-muted-foreground text-foreground/60">Professional Certification Funding</span>
-                </li>
-                <li className="flex flex-col">
-                   <span className="font-bold">MARA Young Talent Program (YTP) Scholarship</span>
-                   <span className="text-sm text-muted-foreground text-foreground/60">Selected for an education programme to study at a top 50 university in the United Kingdom.</span>
-                </li>
-              </ul>
+        <div ref={sectionRef} className="reveal-text max-w-4xl mx-auto">
+          <div className="space-y-16 border-l-2 border-dashed border-border ml-3 pl-8 relative">
+            {workExperience.map((item, index) => (
+              <div key={index} className="relative">
+                <div className="absolute -left-[41px] top-1.5 w-4 h-4 rounded-full bg-primary border-4 border-background" />
 
-              {/* New Technical Skills Bubbles Section */}
-              <div className="flex items-center gap-2 mb-8 border-b border-primary/20 pb-2">
-                <Code2 size={24} className="text-primary" />
-                <h3 className="text-2xl font-bold uppercase tracking-wider">Technical Skills</h3>
-              </div>
-              <div className="space-y-6 ml-3">
-                {skillCategories.map((category, idx) => (
-                  <div key={idx}>
-                    <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-3">{category.name}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {category.skills.map((skill, sIdx) => (
-                        <span 
-                          key={sIdx} 
-                          className="px-3 py-1 text-xs font-medium bg-primary/10 text-primary border border-primary/20 rounded-full hover:bg-primary/20 transition-colors cursor-default"
-                        >
-                          {skill}
-                        </span>
-                      ))}
+                <div className="flex flex-wrap items-start justify-between gap-2 mb-4">
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 rounded-full bg-card border border-border shadow-sm flex items-center justify-center text-xl font-bold text-primary shrink-0">
+                      {item.logoSrc ? (
+                        <img src={item.logoSrc} alt={item.company} className="w-full h-full object-contain rounded-full" />
+                      ) : (
+                        item.companyInitial
+                      )}
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold">{item.company}</h4>
+                      <span className="inline-block mt-1 px-3 py-1 text-xs font-semibold bg-primary/10 text-primary rounded-full border border-primary/20">
+                        {item.role}
+                      </span>
                     </div>
                   </div>
-                ))}
+                  <span className="text-sm text-muted-foreground shrink-0">{item.period}</span>
+                </div>
+
+                <p className="bg-muted/50 border border-border rounded-lg p-5 text-sm text-foreground/80 leading-relaxed mb-4">
+                  {item.summary}
+                </p>
+
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {item.highlights.map((highlight, i) => (
+                    <div key={i} className="flex gap-3 rounded-lg border border-border p-4">
+                      <ArrowRight className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                      <p className="text-sm text-foreground/80 leading-relaxed">
+                        <span className="font-semibold text-foreground">{highlight.label}: </span>
+                        {highlight.text}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
