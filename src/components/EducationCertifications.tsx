@@ -23,7 +23,7 @@ const education: TimelineItem[] = [
     subtitle: "MARA College, Banting",
     period: "2017 - 2019",
     description: "IB Score: 42/45 points.",
-    logoSrc: "/logos/mara-college-banting.jpeg"
+    logoSrc: "/logos/mara-college-banting.png"
   }
 ];
 
