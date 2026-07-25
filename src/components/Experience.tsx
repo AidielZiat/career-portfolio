@@ -15,7 +15,7 @@ const workExperience: WorkExperienceItem[] = [
   {
     company: "Deloitte Consulting SEA",
     companyInitial: "D",
-    logoSrc: "/logos/deloitte.png",
+    logoSrc: "/logos/deloitte.jpeg",
     role: "Consultant, AI & Data",
     period: "2024 - Present",
     description: "Lead data engineer for QA automation using AWS Bedrock and Transcribe, and architected customer churn prediction systems on SageMaker and EventBridge."
@@ -23,7 +23,7 @@ const workExperience: WorkExperienceItem[] = [
   {
     company: "PwC Malaysia",
     companyInitial: "P",
-    logoSrc: "/logos/pwc.png",
+    logoSrc: "/logos/pwc.jpeg",
     role: "Associate, Financial Risk",
     period: "2022 - 2024",
     description: "Automated IFRS 9 credit risk modeling workflows in Python and R, and built attrition models using LightGBM and XGBoost."

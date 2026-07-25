@@ -9,21 +9,21 @@ const education: TimelineItem[] = [
     subtitle: "Universiti Malaya",
     period: "2024 - 2026 (Expected)",
     description: "Current CGPA: 4.0/4.0. Focused on Advanced Machine Learning and NLP.",
-    logoSrc: "/logos/universiti-malaya.png"
+    logoSrc: "/logos/universiti-malaya.jpeg"
   },
   {
     title: "BSc (Hons) Mathematics and Statistics",
     subtitle: "The University of Manchester",
     period: "2019 - 2022",
     description: "First Class Honours. Specialized in Multivariate Statistics and Machine Learning.",
-    logoSrc: "/logos/manchester.png"
+    logoSrc: "/logos/manchester.jpeg"
   },
   {
     title: "International Baccalaureate (IB) Diploma",
     subtitle: "MARA College, Banting",
     period: "2017 - 2019",
     description: "IB Score: 42/45 points.",
-    logoSrc: "/logos/mara-college-banting.png"
+    logoSrc: "/logos/mara-college-banting.jpeg"
   }
 ];
 
@@ -37,7 +37,7 @@ const certificationsAndAchievements: BadgeItem[] = [
   { name: "AWS Certified Machine Learning Engineer - Associate", issuer: "Amazon Web Services", badgeSrc: "/badges/aws-ml-engineer-associate.png" },
   { name: "AWS Cloud Practitioner", issuer: "Amazon Web Services", badgeSrc: "/badges/aws-cloud-practitioner.png" },
   { name: "Applied Data Science Lab", issuer: "WorldQuant University", badgeSrc: "/badges/worldquant-adsl.png" },
-  { name: "Yayasan Peneraju Scholarship", issuer: "Professional Certification Funding", badgeSrc: "/badges/yayasan-peneraju.png" },
+  { name: "Yayasan Peneraju Scholarship", issuer: "Professional Certification Funding", badgeSrc: "/badges/yayasan-peneraju.jpeg" },
   { name: "MARA Young Talent Program (YTP) Scholarship", issuer: "UK University Placement", badgeSrc: "/badges/mara-ytp.png" }
 ];
 
