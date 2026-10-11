@@ -4,6 +4,7 @@ interface MobileMenuProps {
 }
 
 const navLinks = [
+  { name: 'Home', href: '/' },
   { name: 'Experience', href: '#experience' },
   { name: 'Education', href: '#education' },
   { name: 'Projects', href: '#projects' },

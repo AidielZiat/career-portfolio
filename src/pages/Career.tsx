@@ -11,7 +11,7 @@ import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import Analytics from '@/components/Analytics';
 
-const Index = () => {
+const Career = () => {
   useEffect(() => {
     document.title = "AidielZiat Portfolio";
   }, []);
@@ -34,4 +34,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Career;
