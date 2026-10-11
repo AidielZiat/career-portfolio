@@ -11,7 +11,7 @@ const ProfileImage = () => {
       {/* Replaced 'dark-glow' with a primary (green) shadow */}
       <div className="relative w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-white/10 shadow-2xl shadow-primary/20">
         <img
-          src="lovable-uploads/user1.png"
+          src="/lovable-uploads/user1.png"
           alt="Aidiel Ziat - AI & Data Consultant"
           className="w-full h-full object-cover"
         />
